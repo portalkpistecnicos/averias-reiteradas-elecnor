@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -538,56 +538,209 @@
   ========================================================= */
   // DATA_START
   const REPORT = {
-    fuente: "p23-averias-reiteradas_1_ELECNOR_2026-08",
-    periodo: "Agosto 2026",
-    ingresoPeriodo: "junio a julio de 2026",
-    particion: "01-08-2026",
-    metaPonderada: 3.07,
-    total: 2388,
-    reiterados: 86,
-    tasaGlobal: 3.60,
-    diasProm: 9.2,
-    diasMediana: 6,
-    metasAgencia: [
-      { name: "San Antonio", meta: 4.00 },
-      { name: "Valparaiso", meta: 2.50 },
-      { name: "Vina Del Mar", meta: 3.20 }
-    ],
-    producto: [
-      { name: "BA", sub: "2.205 casos", value: 3.90, count: 86 },
-      { name: "TV", sub: "147 casos", value: 0.00, count: 0 },
-      { name: "ND", sub: "18 casos", value: 0.00, count: 0 },
-      { name: "STB", sub: "18 casos", value: 0.00, count: 0 }
-    ],
-    causas: [
-      { name: "No navega", value: 27, pct: 31.4 },
-      { name: "Cable interior / roseta óptica", value: 22, pct: 25.6 },
-      { name: "Despacho técnico · bot WhatsApp", value: 15, pct: 17.4 },
-      { name: "Despacho técnico · Mi Movistar", value: 9, pct: 10.5 },
-      { name: "Módem dañado", value: 7, pct: 8.1 },
-      { name: "Potencia de señal baja", value: 2, pct: 2.3 },
-      { name: "Otras", value: 4, pct: 4.7 }
-    ],
-    agencia: [
-      { name: "Vina Del Mar", sub: "1.321 casos", value: 5.60, count: 74, meta: 3.20 },
-      { name: "San Antonio", sub: "284 casos", value: 2.11, count: 6, meta: 4.00 },
-      { name: "Valparaiso", sub: "783 casos", value: 0.77, count: 6, meta: 2.50 }
-    ],
-    tecnicos: [
-      { name: "Franco Josue Diaz Nunez", sub: "39 casos", value: 12.82, count: 5 },
-      { name: "Cristian Nicolas Serrano Vellagas", sub: "88 casos", value: 12.50, count: 11 },
-      { name: "Wilfred Rene Rocco Zuniga", sub: "43 casos", value: 9.30, count: 4 },
-      { name: "Juan Jose Marcano Gonzalez", sub: "36 casos", value: 8.33, count: 3 },
-      { name: "Jose Manuel Sepulveda Rojas", sub: "48 casos", value: 8.33, count: 4 },
-      { name: "Nestor Fabian Pasten Alarcon", sub: "37 casos", value: 8.11, count: 3 },
-      { name: "Patricio Canales Geve", sub: "50 casos", value: 8.00, count: 4 },
-      { name: "Alejandro Nicolas Para Gomez", sub: "50 casos", value: 8.00, count: 4 },
-      { name: "Alejandro Sebastian Cisternas Marin", sub: "50 casos", value: 8.00, count: 4 },
-      { name: "Richards Antonio Cruz Cuevas", sub: "46 casos", value: 6.52, count: 3 },
-      { name: "Bastian Ignacio Rios Madrid", sub: "47 casos", value: 6.38, count: 3 },
-      { name: "Hector Jose Ortiz Marquez", sub: "34 casos", value: 5.88, count: 2 }
-    ]
-  };
+    "fuente":  "p23-averias-reiteradas_1_ELECNOR_2026-08",
+    "periodo":  "Agosto 2026",
+    "ingresoPeriodo":  "junio a julio de 2026",
+    "particion":  "01-08-2026",
+    "metaPonderada":  3.07,
+    "total":  2388,
+    "reiterados":  86,
+    "tasaGlobal":  3.6,
+    "diasProm":  9.2,
+    "diasMediana":  6,
+    "metasAgencia":  [
+                         {
+                             "name":  "San Antonio",
+                             "meta":  4
+                         },
+                         {
+                             "name":  "Valparaiso",
+                             "meta":  2.5
+                         },
+                         {
+                             "name":  "Vina Del Mar",
+                             "meta":  3.2
+                         }
+                     ],
+    "producto":  [
+                     {
+                         "name":  "STB",
+                         "sub":  "18 casos",
+                         "value":  0,
+                         "count":  0
+                     },
+                     {
+                         "name":  "ND",
+                         "sub":  "18 casos",
+                         "value":  0,
+                         "count":  0
+                     },
+                     {
+                         "name":  "BA",
+                         "sub":  "2.205 casos",
+                         "value":  3.9,
+                         "count":  86
+                     },
+                     {
+                         "name":  "TV",
+                         "sub":  "147 casos",
+                         "value":  0,
+                         "count":  0
+                     }
+                 ],
+    "causas":  [
+                   {
+                       "name":  "BA-NO NAVEGA",
+                       "value":  27,
+                       "pct":  31.4
+                   },
+                   {
+                       "name":  "BA-CABLE INT/ ROSETA OPTICA",
+                       "value":  22,
+                       "pct":  25.6
+                   },
+                   {
+                       "name":  "DESPACHO TEC REQUERIDO BOT WHATSAPP",
+                       "value":  15,
+                       "pct":  17.4
+                   },
+                   {
+                       "name":  "DESPACHO TEC REQUERIDO MI MOVISTAR",
+                       "value":  9,
+                       "pct":  10.5
+                   },
+                   {
+                       "name":  "BA-MODEM DANADO",
+                       "value":  7,
+                       "pct":  8.1
+                   },
+                   {
+                       "name":  "BA-POTENCIA BAJA",
+                       "value":  1,
+                       "pct":  1.2
+                   },
+                   {
+                       "name":  "Otras",
+                       "value":  5,
+                       "pct":  5.8
+                   }
+               ],
+    "agencia":  [
+                    {
+                        "name":  "Vina Del Mar",
+                        "sub":  "1.321 casos",
+                        "value":  5.6,
+                        "count":  74,
+                        "meta":  3.2
+                    },
+                    {
+                        "name":  "Valparaiso",
+                        "sub":  "783 casos",
+                        "value":  0.77,
+                        "count":  6,
+                        "meta":  2.5
+                    },
+                    {
+                        "name":  "San Antonio",
+                        "sub":  "284 casos",
+                        "value":  2.11,
+                        "count":  6,
+                        "meta":  4
+                    }
+                ],
+    "tecnicos":  [
+                     {
+                         "name":  "Franco Josue Diaz Nunez",
+                         "sub":  "39 casos",
+                         "value":  12.82,
+                         "count":  5
+                     },
+                     {
+                         "name":  "Cristian Nicolas Serrano Vellagas",
+                         "sub":  "88 casos",
+                         "value":  12.5,
+                         "count":  11
+                     },
+                     {
+                         "name":  "Wilfred Rene Rocco Zuniga",
+                         "sub":  "43 casos",
+                         "value":  9.3,
+                         "count":  4
+                     },
+                     {
+                         "name":  "Jose Manuel Sepulveda Rojas",
+                         "sub":  "48 casos",
+                         "value":  8.33,
+                         "count":  4
+                     },
+                     {
+                         "name":  "Juan Jose Marcano Gonzalez",
+                         "sub":  "36 casos",
+                         "value":  8.33,
+                         "count":  3
+                     },
+                     {
+                         "name":  "Nestor Fabian Pasten Alarcon",
+                         "sub":  "37 casos",
+                         "value":  8.11,
+                         "count":  3
+                     },
+                     {
+                         "name":  "Alejandro Sebastian Cisternas Marin",
+                         "sub":  "50 casos",
+                         "value":  8,
+                         "count":  4
+                     },
+                     {
+                         "name":  "Patricio Canales Geve",
+                         "sub":  "50 casos",
+                         "value":  8,
+                         "count":  4
+                     },
+                     {
+                         "name":  "Alejandro Nicolas Para Gomez",
+                         "sub":  "50 casos",
+                         "value":  8,
+                         "count":  4
+                     },
+                     {
+                         "name":  "Richards Antonio Cruz Cuevas",
+                         "sub":  "46 casos",
+                         "value":  6.52,
+                         "count":  3
+                     },
+                     {
+                         "name":  "Bastian Ignacio Rios Madrid",
+                         "sub":  "47 casos",
+                         "value":  6.38,
+                         "count":  3
+                     },
+                     {
+                         "name":  "Hector Jose Ortiz Marquez",
+                         "sub":  "34 casos",
+                         "value":  5.88,
+                         "count":  2
+                     },
+                     {
+                         "name":  "Daniel Alexander Ramirez Torres",
+                         "sub":  "40 casos",
+                         "value":  5,
+                         "count":  2
+                     },
+                     {
+                         "name":  "Carlos Hernan Munoz Matus",
+                         "sub":  "61 casos",
+                         "value":  4.92,
+                         "count":  3
+                     },
+                     {
+                         "name":  "Hector David Avalos Rupcich",
+                         "sub":  "62 casos",
+                         "value":  4.84,
+                         "count":  3
+                     }
+                 ]
+};
   // DATA_END
 
   const tooltip = document.getElementById('tooltip');
