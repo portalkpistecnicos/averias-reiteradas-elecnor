@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reiteradas BA — ELECNOR</title>
+<style>
+  :root {
+    --surface: #EEF4F4;
+    --surface-card: #FFFFFF;
+    --surface-sunken: #E3ECEC;
+    --ink: #16262A;
+    --ink-muted: #55696D;
+    --ink-faint: #7C8E91;
+    --border: #D7E3E3;
+    --border-strong: #BDCFCF;
+    --accent: #0A9E96;
+    --accent-ink: #05625C;
+    --accent-soft: #DBEEEC;
+    --critical: #D14343;
+    --critical-ink: #97281F;
+    --critical-soft: #F8DEDE;
+    --track: #E3ECEC;
+    --shadow: 0 1px 2px rgba(20,40,42,0.06), 0 8px 24px -12px rgba(20,40,42,0.18);
+    --radius: 10px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --surface: #0E1517;
+      --surface-card: #16201F;
+      --surface-sunken: #101919;
+      --ink: #E7EFEE;
+      --ink-muted: #93A8AB;
+      --ink-faint: #6C8285;
+      --border: #223131;
+      --border-strong: #2C3F3F;
+      --accent: #25A99F;
+      --accent-ink: #6FDCD1;
+      --accent-soft: #163330;
+      --critical: #E4675F;
+      --critical-ink: #F5A29C;
+      --critical-soft: #3A2220;
+      --track: #1B2626;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"] {
+    --surface: #0E1517;
+    --surface-card: #16201F;
+    --surface-sunken: #101919;
+    --ink: #E7EFEE;
+    --ink-muted: #93A8AB;
+    --ink-faint: #6C8285;
+    --border: #223131;
+    --border-strong: #2C3F3F;
+    --accent: #25A99F;
+    --accent-ink: #6FDCD1;
+    --accent-soft: #163330;
+    --critical: #E4675F;
+    --critical-ink: #F5A29C;
+    --critical-soft: #3A2220;
+    --track: #1B2626;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    background: var(--surface);
+    color: var(--ink);
+    font-family: "Segoe UI", "Calibri", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.45;
+  }
+
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 28px 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+  }
+
+  h1, h2, h3 {
+    font-family: "Bahnschrift SemiCondensed", "Bahnschrift", "Segoe UI Semibold", "Arial Narrow", sans-serif;
+    font-weight: 600;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .mono {
+    font-family: "Cascadia Mono", "Consolas", ui-monospace, "SFMono-Regular", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Header ---------- */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 22px;
+  }
+  .header .eyebrow {
+    font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    margin: 0 0 8px;
+  }
+  .header h1 {
+    font-size: 30px;
+    letter-spacing: 0.01em;
+  }
+  .header .subtitle {
+    color: var(--ink-muted);
+    font-size: 14.5px;
+    margin-top: 6px;
+  }
+  .header .meta-info {
+    text-align: right;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
+    line-height: 1.7;
+  }
+
+  /* ---------- KPI strip ---------- */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .kpi {
+    background: var(--surface-card);
+    padding: 18px 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .kpi .label {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-faint);
+  }
+  .kpi .value {
+    font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .kpi .value.critical { color: var(--critical-ink); }
+  .kpi .value.accent { color: var(--accent-ink); }
+  .kpi .sub { font-size: 12px; color: var(--ink-muted); }
+
+  /* ---------- Card ---------- */
+  .card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px 26px 22px;
+  }
+  .card .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+  .card h2 {
+    font-size: 18px;
+  }
+  .card .card-note {
+    font-size: 12.5px;
+    color: var(--ink-faint);
+  }
+  .card .card-desc {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin: 4px 0 20px;
+    max-width: 62ch;
+  }
+
+  /* ---------- Bullet / hero comparison ---------- */
+  .bullet-wrap {
+    display: grid;
+    grid-template-columns: 1.1fr 1.4fr;
+    gap: 32px;
+    align-items: center;
+  }
+  @media (max-width: 760px) { .bullet-wrap { grid-template-columns: 1fr; } }
+
+  .hero-figure {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hero-figure .headline {
+    font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
+    font-size: 58px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--critical-ink);
+    letter-spacing: -0.02em;
+  }
+  .hero-figure .headline.accent { color: var(--accent-ink); }
+  .hero-figure .headline small {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink-faint);
+    margin-left: 4px;
+  }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    padding: 5px 11px 5px 9px;
+    border-radius: 999px;
+    background: var(--critical-soft);
+    color: var(--critical-ink);
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .status-pill::before {
+    content: "";
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--critical);
+    flex: none;
+  }
+  .status-pill.accent { background: var(--accent-soft); color: var(--accent-ink); }
+  .status-pill.accent::before { background: var(--accent); }
+  .hero-figure .gap-note {
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+  .hero-figure .gap-note b { color: var(--ink); font-family: "Cascadia Mono","Consolas",monospace; }
+
+  .bullet-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .bullet-row { display: flex; flex-direction: column; gap: 7px; }
+  .bullet-row .row-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: var(--ink-muted);
+  }
+  .bullet-row .row-label .name { font-weight: 600; color: var(--ink); }
+  .bullet-track {
+    position: relative;
+    height: 26px;
+    background: var(--track);
+    border-radius: 6px;
+    overflow: visible;
+  }
+  .bullet-fill {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    border-radius: 6px 4px 4px 6px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 9px;
+    font-family: "Cascadia Mono","Consolas",monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+  .bullet-fill.critical { background: var(--critical); }
+  .bullet-fill.accent { background: var(--accent); }
+  .meta-marker {
+    position: absolute;
+    top: -6px; bottom: -6px;
+    width: 2px;
+    background: var(--ink);
+    opacity: 0.75;
+  }
+  .meta-marker .tick-label {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Cascadia Mono","Consolas",monospace;
+    font-size: 10.5px;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  /* ---------- Generic horizontal bar chart ---------- */
+  .hbar-chart { display: flex; flex-direction: column; gap: 11px; position: relative; }
+  .hbar-row { display: grid; grid-template-columns: 200px 1fr; align-items: center; gap: 12px; }
+  .hbar-row .hname {
+    font-size: 12.5px;
+    color: var(--ink);
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .hbar-row .hname .hsub { color: var(--ink-faint); font-size: 11px; }
+  .hbar-track {
+    position: relative;
+    height: 20px;
+    background: var(--track);
+    border-radius: 5px;
+  }
+  .hbar-fill {
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    border-radius: 5px 4px 4px 5px;
+    min-width: 2px;
+    cursor: pointer;
+  }
+  .hbar-fill.accent { background: var(--accent); }
+  .hbar-fill.critical { background: var(--critical); }
+  .hbar-fill:hover { filter: brightness(1.08); }
+  .hbar-value {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    font-family: "Cascadia Mono","Consolas",monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .hbar-chart.with-meta .meta-marker { top: -3px; bottom: -3px; }
+  .hbar-legend-note {
+    display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+    font-size: 11.5px; color: var(--ink-muted);
+    margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-strong);
+  }
+  .hbar-legend-note .sw { display: inline-flex; align-items: center; gap: 5px; }
+  .hbar-legend-note .dot { width: 9px; height: 9px; border-radius: 2px; }
+  .hbar-legend-note .dot.accent { background: var(--accent); }
+  .hbar-legend-note .dot.critical { background: var(--critical); }
+  .hbar-legend-note .dot.line { width: 12px; height: 2px; background: var(--ink); opacity: 0.75; border-radius: 0; }
+
+  /* tooltip */
+  .tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: var(--ink);
+    color: var(--surface);
+    font-size: 12px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    line-height: 1.4;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    transform: translate(-50%, calc(-100% - 10px));
+    transition: opacity 0.12s ease;
+    z-index: 20;
+    white-space: nowrap;
+  }
+  .tooltip.visible { opacity: 1; }
+  .tooltip .tt-title { font-weight: 700; }
+  .tooltip .tt-sub { color: var(--ink-faint); }
+
+  /* ---------- Two-column grid ---------- */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    align-items: stretch;
+  }
+  @media (max-width: 860px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+  .footer .cols { display: flex; gap: 40px; flex-wrap: wrap; }
+  .footer dt { font-weight: 600; color: var(--ink-muted); margin-bottom: 2px; }
+  .footer dd { margin: 0 0 10px; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="header">
+    <div>
+      <p class="eyebrow">Panel de calidad · Reclamos técnicos FO</p>
+      <h1>Averías reiteradas — ELECNOR</h1>
+      <p class="subtitle" id="txtSubtitle"></p>
+    </div>
+    <div class="meta-info">
+      <span id="txtFuente"></span><br>
+      <span id="txtUniverso"></span><br>
+      Meta ponderada: <b style="color:var(--ink)" id="txtMetaHeader"></b>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <span class="label">Tasa reiterada global</span>
+      <span class="value" id="kpiTasaGlobal"></span>
+      <span class="sub" id="kpiTasaGlobalSub"></span>
+    </div>
+    <div class="kpi">
+      <span class="label">Brecha vs. meta</span>
+      <span class="value" id="kpiBrecha"></span>
+      <span class="sub" id="kpiBrechaSub"></span>
+    </div>
+    <div class="kpi">
+      <span class="label">Casos reiterados</span>
+      <span class="value" id="kpiReiterados"></span>
+      <span class="sub" id="kpiReiteradosSub"></span>
+    </div>
+    <div class="kpi">
+      <span class="label">Agencias sobre su meta</span>
+      <span class="value" id="kpiAgencias"></span>
+      <span class="sub">de las agencias con meta definida</span>
+    </div>
+    <div class="kpi">
+      <span class="label">Días medios a la reiteración</span>
+      <span class="value accent" id="kpiDias"></span>
+      <span class="sub" id="kpiDiasSub"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h2>Tasa reiterada vs. meta ponderada</h2>
+      <span class="card-note" id="txtProductoNote"></span>
+    </div>
+    <p class="card-desc" id="txtBulletDesc"></p>
+    <div class="bullet-wrap">
+      <div class="hero-figure">
+        <span class="status-pill" id="heroPill"></span>
+        <span class="headline" id="heroHeadline"></span>
+        <span class="gap-note" id="heroGapNote"></span>
+      </div>
+      <div class="bullet-chart" id="bulletChart"></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head">
+        <h2>Tasa por producto</h2>
+      </div>
+      <p class="card-desc" id="txtProductoDesc"></p>
+      <div class="hbar-chart" id="productoChart"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Subcausa de la reiteración</h2>
+      </div>
+      <p class="card-desc" id="txtCausasDesc"></p>
+      <div class="hbar-chart" id="causasChart"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h2>Tasa reiterada por agencia</h2>
+      <span class="card-note">cada agencia tiene su propia meta (marca │)</span>
+    </div>
+    <p class="card-desc" id="txtAgenciaDesc"></p>
+    <div class="hbar-chart with-meta" id="agenciaChart"></div>
+    <div class="hbar-legend-note">
+      <span class="sw"><span class="dot critical"></span>Sobre su meta</span>
+      <span class="sw"><span class="dot accent"></span>Bajo su meta</span>
+      <span class="sw"><span class="dot line"></span>Meta de la agencia</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h2>Tasa reiterada por técnico</h2>
+      <span class="card-note" id="txtTecnicosNote"></span>
+    </div>
+    <p class="card-desc" id="txtTecnicosDesc"></p>
+    <div class="hbar-chart with-meta" id="tecnicosChart"></div>
+    <div class="hbar-legend-note">
+      <span class="sw"><span class="dot critical"></span>Sobre meta ponderada</span>
+      <span class="sw"><span class="dot accent"></span>Bajo meta ponderada</span>
+      <span class="sw"><span class="dot line"></span><span id="txtLegendMeta"></span></span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="cols">
+      <dl>
+        <dt>Alcance</dt>
+        <dd id="txtAlcance"></dd>
+      </dl>
+      <dl>
+        <dt>Definición de reiteración</dt>
+        <dd>Orden/producto con una reparación previa registrada dentro de los 30 días anteriores (campo Remedy rdy_prd_tiene_reitero_30d).</dd>
+      </dl>
+      <dl>
+        <dt>Metas por agencia</dt>
+        <dd id="txtMetasAgencia"></dd>
+      </dl>
+    </div>
+    <div id="txtGenerado"></div>
+  </div>
+
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+  /* =========================================================
+     BLOQUE DE DATOS — regenerado automáticamente por
+     actualizar_reporte.ps1 en cada corrida del .bat.
+     No editar a mano entre estos marcadores.
+  ========================================================= */
+  // DATA_START
+  const REPORT = {
+    fuente: "p23-averias-reiteradas_1_ELECNOR_2026-08",
+    periodo: "Agosto 2026",
+    ingresoPeriodo: "junio a julio de 2026",
+    particion: "01-08-2026",
+    metaPonderada: 3.07,
+    total: 2388,
+    reiterados: 86,
+    tasaGlobal: 3.60,
+    diasProm: 9.2,
+    diasMediana: 6,
+    metasAgencia: [
+      { name: "San Antonio", meta: 4.00 },
+      { name: "Valparaiso", meta: 2.50 },
+      { name: "Vina Del Mar", meta: 3.20 }
+    ],
+    producto: [
+      { name: "BA", sub: "2.205 casos", value: 3.90, count: 86 },
+      { name: "TV", sub: "147 casos", value: 0.00, count: 0 },
+      { name: "ND", sub: "18 casos", value: 0.00, count: 0 },
+      { name: "STB", sub: "18 casos", value: 0.00, count: 0 }
+    ],
+    causas: [
+      { name: "No navega", value: 27, pct: 31.4 },
+      { name: "Cable interior / roseta óptica", value: 22, pct: 25.6 },
+      { name: "Despacho técnico · bot WhatsApp", value: 15, pct: 17.4 },
+      { name: "Despacho técnico · Mi Movistar", value: 9, pct: 10.5 },
+      { name: "Módem dañado", value: 7, pct: 8.1 },
+      { name: "Potencia de señal baja", value: 2, pct: 2.3 },
+      { name: "Otras", value: 4, pct: 4.7 }
+    ],
+    agencia: [
+      { name: "Vina Del Mar", sub: "1.321 casos", value: 5.60, count: 74, meta: 3.20 },
+      { name: "San Antonio", sub: "284 casos", value: 2.11, count: 6, meta: 4.00 },
+      { name: "Valparaiso", sub: "783 casos", value: 0.77, count: 6, meta: 2.50 }
+    ],
+    tecnicos: [
+      { name: "Franco Josue Diaz Nunez", sub: "39 casos", value: 12.82, count: 5 },
+      { name: "Cristian Nicolas Serrano Vellagas", sub: "88 casos", value: 12.50, count: 11 },
+      { name: "Wilfred Rene Rocco Zuniga", sub: "43 casos", value: 9.30, count: 4 },
+      { name: "Juan Jose Marcano Gonzalez", sub: "36 casos", value: 8.33, count: 3 },
+      { name: "Jose Manuel Sepulveda Rojas", sub: "48 casos", value: 8.33, count: 4 },
+      { name: "Nestor Fabian Pasten Alarcon", sub: "37 casos", value: 8.11, count: 3 },
+      { name: "Patricio Canales Geve", sub: "50 casos", value: 8.00, count: 4 },
+      { name: "Alejandro Nicolas Para Gomez", sub: "50 casos", value: 8.00, count: 4 },
+      { name: "Alejandro Sebastian Cisternas Marin", sub: "50 casos", value: 8.00, count: 4 },
+      { name: "Richards Antonio Cruz Cuevas", sub: "46 casos", value: 6.52, count: 3 },
+      { name: "Bastian Ignacio Rios Madrid", sub: "47 casos", value: 6.38, count: 3 },
+      { name: "Hector Jose Ortiz Marquez", sub: "34 casos", value: 5.88, count: 2 }
+    ]
+  };
+  // DATA_END
+
+  const tooltip = document.getElementById('tooltip');
+  function showTip(el, title, sub) {
+    tooltip.innerHTML = '<div class="tt-title">' + title + '</div>' + (sub ? '<div class="tt-sub">' + sub + '</div>' : '');
+    tooltip.classList.add('visible');
+    positionTip(el);
+  }
+  function positionTip(el) {
+    const r = el.getBoundingClientRect();
+    tooltip.style.left = (r.left + r.width / 2) + 'px';
+    tooltip.style.top = r.top + 'px';
+  }
+  function hideTip() { tooltip.classList.remove('visible'); }
+
+  function fmtPct(v) {
+    return v.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' %';
+  }
+  function fmtInt(v) {
+    return v.toLocaleString('es-CL');
+  }
+
+  function renderTexts() {
+    const R = REPORT;
+    const meta = R.metaPonderada;
+    const over = R.tasaGlobal > meta;
+    const statusCls = over ? 'critical' : 'accent';
+    const brecha = R.tasaGlobal - meta;
+    const brechaAbs = Math.abs(brecha);
+
+    document.title = 'Reiteradas BA ' + R.periodo;
+    document.getElementById('txtSubtitle').textContent =
+      'Reincidencias de reclamos tecnicos en 30 dias · ' + R.periodo + ' (ingresos de ' + R.ingresoPeriodo + ')';
+    document.getElementById('txtFuente').textContent = 'Fuente: ' + R.fuente;
+    document.getElementById('txtUniverso').textContent = 'Universo: ' + fmtInt(R.total) + ' reclamos completados';
+    document.getElementById('txtMetaHeader').textContent = '≤ ' + fmtPct(meta);
+
+    const kpiTasa = document.getElementById('kpiTasaGlobal');
+    kpiTasa.textContent = fmtPct(R.tasaGlobal);
+    kpiTasa.className = 'value ' + statusCls;
+    document.getElementById('kpiTasaGlobalSub').textContent = 'vs. meta ' + fmtPct(meta);
+
+    const kpiBrecha = document.getElementById('kpiBrecha');
+    kpiBrecha.textContent = (brecha >= 0 ? '+' : '−') + brechaAbs.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' p.p.';
+    kpiBrecha.className = 'value ' + statusCls;
+    document.getElementById('kpiBrechaSub').textContent =
+      (meta > 0 ? Math.round(brechaAbs / meta * 100) : 0) + ' % ' + (over ? 'por sobre el límite' : 'bajo el límite');
+
+    document.getElementById('kpiReiterados').textContent = fmtInt(R.reiterados);
+    document.getElementById('kpiReiteradosSub').textContent = 'de ' + fmtInt(R.total) + ' reclamos';
+
+    const agenciasSobre = R.agencia.filter(a => a.value > a.meta).length;
+    const kpiAg = document.getElementById('kpiAgencias');
+    kpiAg.textContent = agenciasSobre + ' / ' + R.agencia.length;
+    kpiAg.className = 'value ' + (agenciasSobre > 0 ? 'critical' : 'accent');
+
+    document.getElementById('kpiDias').textContent = R.diasProm.toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    document.getElementById('kpiDiasSub').textContent = 'mediana ' + R.diasMediana + ' días';
+
+    const pill = document.getElementById('heroPill');
+    pill.textContent = over ? 'Sobre meta' : 'Bajo meta';
+    pill.className = 'status-pill ' + statusCls;
+
+    const headline = document.getElementById('heroHeadline');
+    headline.className = 'headline ' + statusCls;
+    headline.innerHTML = R.tasaGlobal.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '<small>%</small>';
+
+    document.getElementById('heroGapNote').innerHTML =
+      'Meta ponderada: <b>' + fmtPct(meta) + '</b> · Brecha: <b>' + (brecha >= 0 ? '+' : '−') + brechaAbs.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' p.p.</b> · ' +
+      agenciasSobre + ' de ' + R.agencia.length + ' agencias superan su meta individual.';
+
+    document.getElementById('txtBulletDesc').textContent =
+      'La tasa reiterada del período se ubica ' + brechaAbs.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +
+      ' puntos porcentuales ' + (over ? 'sobre' : 'bajo') + ' la meta ponderada por volumen de agencias (' + fmtPct(meta) + ').';
+
+    const conCasos = R.producto.filter(p => p.count > 0).map(p => p.name);
+    document.getElementById('txtProductoNote').textContent =
+      conCasos.length === 1 ? '100 % de las reiteraciones ocurren en producto ' + conCasos[0]
+      : conCasos.length === 0 ? 'Sin reiteraciones en el período'
+      : 'Reiteraciones concentradas en: ' + conCasos.join(', ');
+    document.getElementById('txtProductoDesc').textContent =
+      'Solo el producto con reiteraciones se compara contra la meta ponderada global; el resto no registra casos en el período.';
+
+    document.getElementById('txtCausasDesc').textContent =
+      'Sobre los ' + R.reiterados + ' casos reiterados, según subcausa técnica reportada en Remedy.';
+
+    document.getElementById('txtAgenciaDesc').textContent =
+      'Cada agencia se compara contra su propia meta de tasa reiterada, no contra el promedio global.';
+
+    const top1 = R.tecnicos[0];
+    document.getElementById('txtTecnicosNote').textContent = 'Técnicos con 15+ reclamos en el mes · ordenado de mayor a menor';
+    document.getElementById('txtTecnicosDesc').textContent =
+      'Comparados contra la meta ponderada global (' + fmtPct(meta) + '), ya que no hay meta individual por técnico.' +
+      (top1 ? ' El más alto (' + top1.name + ') registra ' + (top1.value / R.tasaGlobal).toLocaleString('es-CL', { maximumFractionDigits: 1 }) + '× la tasa global.' : '');
+
+    document.getElementById('txtLegendMeta').textContent = 'Meta ponderada ' + fmtPct(meta);
+
+    document.getElementById('txtAlcance').textContent =
+      'Reclamos técnicos FO completados por ELECNOR, zona Norte, ingresos de ' + R.ingresoPeriodo + ' (partición ' + R.particion + ').';
+    document.getElementById('txtMetasAgencia').textContent =
+      R.metasAgencia.map(m => m.name + ' ≤ ' + fmtPct(m.meta)).join(' · ');
+    document.getElementById('txtGenerado').textContent = 'Generado a partir de ' + R.fuente + '.xlsx';
+  }
+
+  function renderBulletChart() {
+    const el = document.getElementById('bulletChart');
+    const meta = REPORT.metaPonderada;
+    const value = REPORT.tasaGlobal;
+    const max = Math.max(value, meta) * 1.35;
+    const cls = value > meta ? 'critical' : 'accent';
+    const w = (value / max) * 100;
+    const metaPos = (meta / max) * 100;
+    el.innerHTML = `
+      <div class="bullet-row">
+        <div class="row-label"><span class="name">Tasa reiterada observada</span><span class="mono">${fmtPct(value)}</span></div>
+        <div class="bullet-track">
+          <div class="bullet-fill ${cls}" style="width:${w}%"></div>
+          <div class="meta-marker" style="left:${metaPos}%">
+            <span class="tick-label">Meta ${fmtPct(meta)}</span>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ---- Barra horizontal con meta COMPARTIDA (una linea para todas las filas) ----
+  function renderHBar(containerId, data, opts) {
+    const el = document.getElementById(containerId);
+    const max = opts.max;
+    const withMeta = !!opts.showMeta;
+    const metaPos = withMeta ? (opts.metaValue / max) * 100 : null;
+
+    el.innerHTML = data.map((d, i) => {
+      const w = Math.max((d.value / max) * 100, 0.6);
+      let cls = 'accent';
+      if (opts.colorBy === 'meta') cls = d.value > opts.metaValue ? 'critical' : 'accent';
+      const labelInside = w > 22;
+      const valueText = opts.valueFormat ? opts.valueFormat(d) : fmtPct(d.value);
+      return `
+        <div class="hbar-row">
+          <div class="hname"><span>${d.name}</span>${d.sub ? ' <span class="hsub">· ' + d.sub + '</span>' : ''}</div>
+          <div class="hbar-track">
+            <div class="hbar-fill ${cls}" data-i="${i}" style="width:${w}%">
+            </div>
+            ${withMeta ? `<div class="meta-marker" style="left:${metaPos}%"></div>` : ''}
+            <span class="hbar-value" style="${labelInside ? 'right:8px;color:#fff' : 'left:calc(' + w + '% + 8px);color:var(--ink)'}">${valueText}</span>
+          </div>
+        </div>`;
+    }).join('');
+
+    el.querySelectorAll('.hbar-fill').forEach(bar => {
+      const d = data[+bar.dataset.i];
+      bar.addEventListener('mouseenter', () => {
+        const sub = opts.tooltipSub ? opts.tooltipSub(d) : '';
+        showTip(bar, d.name, sub);
+      });
+      bar.addEventListener('mousemove', () => positionTip(bar));
+      bar.addEventListener('mouseleave', hideTip);
+    });
+  }
+
+  // ---- Barra horizontal con meta PROPIA por fila (ej. agencias) ----
+  function renderHBarOwnMeta(containerId, data, opts) {
+    const el = document.getElementById(containerId);
+    const max = opts.max;
+
+    el.innerHTML = data.map((d, i) => {
+      const w = Math.max((d.value / max) * 100, 0.6);
+      const cls = d.value > d.meta ? 'critical' : 'accent';
+      const labelInside = w > 22;
+      const metaPos = (d.meta / max) * 100;
+      return `
+        <div class="hbar-row">
+          <div class="hname"><span>${d.name}</span>${d.sub ? ' <span class="hsub">· ' + d.sub + '</span>' : ''}</div>
+          <div class="hbar-track">
+            <div class="hbar-fill ${cls}" data-i="${i}" style="width:${w}%"></div>
+            <div class="meta-marker" style="left:${metaPos}%"></div>
+            <span class="hbar-value" style="${labelInside ? 'right:8px;color:#fff' : 'left:calc(' + w + '% + 8px);color:var(--ink)'}">${fmtPct(d.value)}</span>
+          </div>
+        </div>`;
+    }).join('');
+
+    el.querySelectorAll('.hbar-fill').forEach(bar => {
+      const d = data[+bar.dataset.i];
+      bar.addEventListener('mouseenter', () => {
+        showTip(bar, d.name, d.count + ' reiterados · meta propia ' + fmtPct(d.meta));
+      });
+      bar.addEventListener('mousemove', () => positionTip(bar));
+      bar.addEventListener('mouseleave', hideTip);
+    });
+  }
+
+  function maxOf(arr, key) { return arr.reduce((m, d) => Math.max(m, d[key]), 0); }
+
+  renderTexts();
+  renderBulletChart();
+
+  renderHBar('productoChart', REPORT.producto, {
+    max: Math.max(maxOf(REPORT.producto, 'value'), REPORT.metaPonderada) * 1.3,
+    showMeta: true,
+    metaValue: REPORT.metaPonderada,
+    colorBy: 'meta',
+    tooltipSub: d => d.count + ' reiteraciones'
+  });
+
+  renderHBar('causasChart', REPORT.causas, {
+    max: maxOf(REPORT.causas, 'value') * 1.15,
+    showMeta: false,
+    colorBy: 'fixed',
+    valueFormat: d => d.value + ' casos · ' + d.pct.toLocaleString('es-CL') + ' %',
+    tooltipSub: d => d.pct.toLocaleString('es-CL') + ' % de los ' + REPORT.reiterados + ' casos reiterados'
+  });
+
+  renderHBarOwnMeta('agenciaChart', REPORT.agencia, {
+    max: Math.max(maxOf(REPORT.agencia, 'value'), maxOf(REPORT.agencia, 'meta')) * 1.25
+  });
+
+  renderHBar('tecnicosChart', REPORT.tecnicos, {
+    max: Math.max(maxOf(REPORT.tecnicos, 'value'), REPORT.metaPonderada) * 1.15,
+    showMeta: true,
+    metaValue: REPORT.metaPonderada,
+    colorBy: 'meta',
+    tooltipSub: d => d.count + ' reiterados sobre ' + d.sub
+  });
+</script>
+</body>
+</html>
