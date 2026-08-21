@@ -96,11 +96,16 @@ body{
 .masthead{
   display:flex;
   align-items:center;
-  justify-content:space-between;
   gap:1.5rem;
   padding-bottom:1.5rem;
   border-bottom:3px solid var(--navy-700);
   margin-bottom:2rem;
+}
+.masthead-divider{
+  width:1px;
+  align-self:stretch;
+  background:var(--border-strong);
+  flex-shrink:0;
 }
 .masthead-text{display:flex; flex-direction:column; gap:.35rem;}
 .eyebrow{
@@ -125,7 +130,7 @@ h1{
   color:var(--text-secondary);
   margin:0;
 }
-.logo{height:52px; width:auto; flex-shrink:0;}
+.logo{height:44px; width:auto; flex-shrink:0;}
 section{margin-bottom:2.75rem;}
 h2{
   font-family:var(--font-display);
@@ -279,12 +284,13 @@ footer{
 <div class="page">
 
 <header class="masthead">
+  <img class="logo" alt="Elecnor" src="elecnor-logo.png">
+  <div class="masthead-divider"></div>
   <div class="masthead-text">
     <span class="eyebrow">Informe gerencial &middot; Operaciones</span>
     <h1>Averías reiteradas &mdash; P23</h1>
     <p class="subline">Cierre agosto 2026 &middot; Accesos FO &middot; Partición 01-08-2026</p>
   </div>
-  <img class="logo" alt="Elecnor" src="elecnor-logo.png">
 </header>
 
 <section>
@@ -368,6 +374,82 @@ footer{
       </tbody>
     </table>
   </div>
+</section>
+
+<section>
+  <h2>Técnicos más ofensores del mes</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Técnico</th>
+          <th>Agencia</th>
+          <th>Reparaciones FO</th>
+          <th>Reiteradas (netas)</th>
+          <th>% Reiteración</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cristian Serrano Vellagas</td>
+          <td>Viña del Mar</td>
+          <td>88</td>
+          <td>11</td>
+          <td>12,50 %</td>
+        </tr>
+        <tr>
+          <td>Franco Díaz Núñez</td>
+          <td>Viña del Mar</td>
+          <td>39</td>
+          <td>5</td>
+          <td>12,82 %</td>
+        </tr>
+        <tr>
+          <td>José Sepúlveda Rojas</td>
+          <td>Viña del Mar</td>
+          <td>48</td>
+          <td>5</td>
+          <td>10,42 %</td>
+        </tr>
+        <tr>
+          <td>Patricio Canales Geve</td>
+          <td>Viña del Mar</td>
+          <td>50</td>
+          <td>5</td>
+          <td>10,00 %</td>
+        </tr>
+        <tr>
+          <td>Alejandro Cisternas Marín</td>
+          <td>Viña del Mar</td>
+          <td>50</td>
+          <td>5</td>
+          <td>10,00 %</td>
+        </tr>
+        <tr>
+          <td>Néstor Pastén Alarcón</td>
+          <td>Viña del Mar</td>
+          <td>37</td>
+          <td>4</td>
+          <td>10,81 %</td>
+        </tr>
+        <tr>
+          <td>Wilfred Rocco Zúñiga</td>
+          <td>Viña del Mar</td>
+          <td>43</td>
+          <td>4</td>
+          <td>9,30 %</td>
+        </tr>
+        <tr>
+          <td>Richards Cruz Cuevas</td>
+          <td>Viña del Mar</td>
+          <td>46</td>
+          <td>4</td>
+          <td>8,70 %</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="kpi-note" style="margin-top:.6rem;">Estos 8 técnicos concentran 43 de las 92 averías reiteradas netas (47 %) y los 8 pertenecen a Viña del Mar, en línea con el hallazgo de agencia.</p>
 </section>
 
 <section>
