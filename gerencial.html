@@ -190,6 +190,7 @@ footer{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--border
   <div class="tech-picker">
     <label for="tech-select">Seleccionar técnico</label>
     <select id="tech-select">
+      <option value="" selected disabled>Selecciona un técnico&hellip;</option>
           <option value="0">CRISTIAN NICOLAS SERRANO VELLAGAS &middot; Viña del Mar</option>
           <option value="1">PATRICIO CANALES GEVE &middot; Viña del Mar</option>
           <option value="2">FRANCO JOSUE DIAZ NUNEZ &middot; Viña del Mar</option>
@@ -244,15 +245,14 @@ var TECNICOS = [{"n":"CRISTIAN NICOLAS SERRANO VELLAGAS","a":"Viña del Mar","t"
   var elP = document.getElementById('tech-tasa');
   function render(i){
     var d = TECNICOS[i];
-    if(!d) return;
+    if(!d){ elA.textContent='—'; elT.textContent='—'; elR.textContent='—'; elP.textContent='—'; return; }
     elA.textContent = d.a;
     elT.textContent = d.t;
     elR.textContent = d.r;
     elP.textContent = d.p;
   }
   if (sel) {
-    sel.addEventListener('change', function(){ render(this.value); });
-    if (TECNICOS.length) { sel.value = '0'; render(0); }
+    sel.addEventListener('change', function(){ render(this.value === '' ? null : this.value); });
   }
 })();
 </script>
