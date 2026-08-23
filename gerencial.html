@@ -55,6 +55,13 @@ h2{font-family:var(--font-display); font-weight:700; font-size:21px; color:var(-
 .kpi-value{font-family:var(--font-display); font-weight:700; font-size:30px; color:var(--navy-900); font-variant-numeric:tabular-nums; margin:0;}
 .kpi-value.warn{color:var(--danger-fg);}
 .kpi-note{font-size:12.5px; color:var(--text-muted); margin:.3rem 0 0;}
+.tech-picker{background:var(--surface); border:0.5px solid var(--border); border-radius:10px; padding:1.1rem 1.25rem;}
+.tech-picker label{display:block; font-size:12.5px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:.06em; margin:0 0 .5rem;}
+.tech-picker select{width:100%; min-height:48px; font-size:16px; font-family:var(--font-body); color:var(--text-primary); background:var(--surface); border:1px solid var(--border-strong); border-radius:8px; padding:.6rem .8rem; -webkit-appearance:none; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%234d5972' stroke-width='2'%3E%3Cpath d='M5 7l5 6 5-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right .8rem center; background-size:18px;}
+.tech-picker select:focus{outline:2px solid var(--navy-500); outline-offset:1px;}
+.tech-detail{display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px; margin-top:1rem;}
+.tech-detail .kpi-card{padding:.85rem 1rem;}
+.tech-detail .kpi-value{font-size:22px;}
 .table-wrap{background:var(--surface); border:0.5px solid var(--border); border-radius:10px; overflow-x:auto;}
 table{width:100%; border-collapse:collapse; min-width:640px; font-size:14.5px;}
 thead th{font-family:var(--font-display); font-weight:600; font-size:12.5px; letter-spacing:.04em; text-transform:uppercase; text-align:right; color:#ffffff; background:var(--navy-700); padding:.85rem 1rem; white-space:nowrap;}
@@ -88,7 +95,7 @@ footer{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--border
   <div class="masthead-text">
     <span class="eyebrow">Informe gerencial &middot; Operaciones</span>
     <h1>Averías reiteradas &mdash; P23</h1>
-    <p class="subline">Periodo 19-06-2026 a 31-07-2026 &middot; Accesos FO &middot; Actualizado 21-08-2026</p>
+    <p class="subline">Periodo 19-06-2026 a 31-07-2026 &middot; Accesos FO &middot; Actualizado 22-08-2026</p>
   </div>
 </header>
 
@@ -102,13 +109,13 @@ footer{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--border
     </div>
     <div class="kpi-card">
       <p class="kpi-label">Averías reiteradas (netas)</p>
-      <p class="kpi-value">92</p>
+      <p class="kpi-value">93</p>
       <p class="kpi-note">dentro de 30 días, tras exclusiones</p>
     </div>
     <div class="kpi-card">
       <p class="kpi-label">Tasa de reiteración global</p>
-      <p class="kpi-value">3,85 %</p>
-      <p class="kpi-note">92 / 2.388 reparaciones</p>
+      <p class="kpi-value">3,89 %</p>
+      <p class="kpi-note">93 / 2.388 reparaciones</p>
     </div>
     <div class="kpi-card">
       <p class="kpi-label">Agencias sobre su meta</p>
@@ -131,10 +138,10 @@ footer{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--border
         <tr>
           <td>Viña del Mar</td>
           <td>1.321</td>
-          <td>81</td>
-          <td>6,13 %</td>
+          <td>82</td>
+          <td>6,21 %</td>
           <td>3,20 %</td>
-          <td>+2,93 pp</td>
+          <td>+3,01 pp</td>
           <td><span class="status-pill no">No cumple</span></td>
         </tr>
         <tr>
@@ -167,8 +174,8 @@ footer{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--border
         <tr class="total">
           <td>Total FO</td>
           <td>2.388</td>
-          <td>92</td>
-          <td>3,85 %</td>
+          <td>93</td>
+          <td>3,89 %</td>
           <td>&mdash;</td>
           <td>&mdash;</td>
           <td>&mdash;</td>
@@ -180,73 +187,75 @@ footer{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--border
 
 <section>
   <h2>Técnicos más ofensores del mes</h2>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Técnico</th><th>Agencia</th><th>Reparaciones FO</th><th>Reiteradas (netas)</th><th>% Reiteración</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>CRISTIAN NICOLAS SERRANO VELLAGAS</td>
-          <td>Viña del Mar</td>
-          <td>88</td>
-          <td>11</td>
-          <td>12,50 %</td>
-        </tr>
-        <tr>
-          <td>FRANCO JOSUE DIAZ NUNEZ</td>
-          <td>Viña del Mar</td>
-          <td>39</td>
-          <td>5</td>
-          <td>12,82 %</td>
-        </tr>
-        <tr>
-          <td>JOSE MANUEL SEPULVEDA ROJAS</td>
-          <td>Viña del Mar</td>
-          <td>48</td>
-          <td>5</td>
-          <td>10,42 %</td>
-        </tr>
-        <tr>
-          <td>PATRICIO CANALES GEVE</td>
-          <td>Viña del Mar</td>
-          <td>50</td>
-          <td>5</td>
-          <td>10,00 %</td>
-        </tr>
-        <tr>
-          <td>ALEJANDRO SEBASTIAN CISTERNAS MARIN</td>
-          <td>Viña del Mar</td>
-          <td>50</td>
-          <td>5</td>
-          <td>10,00 %</td>
-        </tr>
-        <tr>
-          <td>NESTOR FABIAN PASTEN ALARCON</td>
-          <td>Viña del Mar</td>
-          <td>37</td>
-          <td>4</td>
-          <td>10,81 %</td>
-        </tr>
-        <tr>
-          <td>WILFRED RENE ROCCO ZUNIGA</td>
-          <td>Viña del Mar</td>
-          <td>43</td>
-          <td>4</td>
-          <td>9,30 %</td>
-        </tr>
-        <tr>
-          <td>RICHARDS ANTONIO CRUZ CUEVAS</td>
-          <td>Viña del Mar</td>
-          <td>46</td>
-          <td>4</td>
-          <td>8,70 %</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="tech-picker">
+    <label for="tech-select">Seleccionar técnico</label>
+    <select id="tech-select">
+          <option value="0">CRISTIAN NICOLAS SERRANO VELLAGAS &middot; Viña del Mar</option>
+          <option value="1">PATRICIO CANALES GEVE &middot; Viña del Mar</option>
+          <option value="2">FRANCO JOSUE DIAZ NUNEZ &middot; Viña del Mar</option>
+          <option value="3">JOSE MANUEL SEPULVEDA ROJAS &middot; Viña del Mar</option>
+          <option value="4">ALEJANDRO SEBASTIAN CISTERNAS MARIN &middot; Viña del Mar</option>
+          <option value="5">NESTOR FABIAN PASTEN ALARCON &middot; Viña del Mar</option>
+          <option value="6">WILFRED RENE ROCCO ZUNIGA &middot; Viña del Mar</option>
+          <option value="7">RICHARDS ANTONIO CRUZ CUEVAS &middot; Viña del Mar</option>
+          <option value="8">JUAN JOSE MARCANO GONZALEZ &middot; Viña del Mar</option>
+          <option value="9">DANIEL ALEXANDER RAMIREZ TORRES &middot; Viña del Mar</option>
+          <option value="10">BASTIAN IGNACIO RIOS MADRID &middot; Viña del Mar</option>
+          <option value="11">ABELARDO HIPOLITO VENEGAS HERNANDEZ &middot; Viña del Mar</option>
+          <option value="12">CARLOS HERNAN MUNOZ MATUS &middot; Viña del Mar</option>
+          <option value="13">HECTOR DAVID AVALOS RUPCICH &middot; Viña del Mar</option>
+          <option value="14">IVAN ALEJANDRO CALDERON MUNOZ &middot; San Antonio</option>
+          <option value="15">PABLO ROLANDO FIERRO ZAMORA &middot; Viña del Mar</option>
+          <option value="16">HECTOR JOSE ORTIZ MARQUEZ &middot; Viña del Mar</option>
+          <option value="17">AUGUSTO ANDRES FUENTES TAPIA &middot; Valparaíso</option>
+          <option value="18">SANTIAGO EMILIO ANGEL ARIAS &middot; Viña del Mar</option>
+          <option value="19">ALEJANDRO NICOLAS PARA GOMEZ &middot; Viña del Mar</option>
+          <option value="20">MAURICIO RODOLFO ASTORGA HERRERA &middot; San Antonio</option>
+          <option value="21">GONZALO ANDRES TAPIA VASCONCELO &middot; Valparaíso</option>
+    </select>
+    <div class="tech-detail">
+      <div class="kpi-card">
+        <p class="kpi-label">Agencia</p>
+        <p class="kpi-value" id="tech-agencia">&mdash;</p>
+      </div>
+      <div class="kpi-card">
+        <p class="kpi-label">Reparaciones FO</p>
+        <p class="kpi-value" id="tech-total">&mdash;</p>
+      </div>
+      <div class="kpi-card">
+        <p class="kpi-label">Reiteradas (netas)</p>
+        <p class="kpi-value" id="tech-reiteradas">&mdash;</p>
+      </div>
+      <div class="kpi-card">
+        <p class="kpi-label">% Reiteración</p>
+        <p class="kpi-value" id="tech-tasa">&mdash;</p>
+      </div>
+    </div>
   </div>
-  <p class="kpi-note" style="margin-top:.6rem;">Estos 8 técnicos concentran 43 de las 92 averías reiteradas netas (47 %) y los 8 pertenecen a Viña del Mar.</p>
+  <p class="kpi-note" style="margin-top:.6rem;">Estos 8 técnicos concentran 44 de las 93 averías reiteradas netas (47 %) y los 8 pertenecen a Viña del Mar.</p>
 </section>
+<script>
+var TECNICOS = [{"n":"CRISTIAN NICOLAS SERRANO VELLAGAS","a":"Viña del Mar","t":"88","r":"11","p":"12,50 %"},{"n":"PATRICIO CANALES GEVE","a":"Viña del Mar","t":"50","r":"6","p":"12,00 %"},{"n":"FRANCO JOSUE DIAZ NUNEZ","a":"Viña del Mar","t":"39","r":"5","p":"12,82 %"},{"n":"JOSE MANUEL SEPULVEDA ROJAS","a":"Viña del Mar","t":"48","r":"5","p":"10,42 %"},{"n":"ALEJANDRO SEBASTIAN CISTERNAS MARIN","a":"Viña del Mar","t":"50","r":"5","p":"10,00 %"},{"n":"NESTOR FABIAN PASTEN ALARCON","a":"Viña del Mar","t":"37","r":"4","p":"10,81 %"},{"n":"WILFRED RENE ROCCO ZUNIGA","a":"Viña del Mar","t":"43","r":"4","p":"9,30 %"},{"n":"RICHARDS ANTONIO CRUZ CUEVAS","a":"Viña del Mar","t":"46","r":"4","p":"8,70 %"},{"n":"JUAN JOSE MARCANO GONZALEZ","a":"Viña del Mar","t":"36","r":"3","p":"8,33 %"},{"n":"DANIEL ALEXANDER RAMIREZ TORRES","a":"Viña del Mar","t":"40","r":"3","p":"7,50 %"},{"n":"BASTIAN IGNACIO RIOS MADRID","a":"Viña del Mar","t":"47","r":"3","p":"6,38 %"},{"n":"ABELARDO HIPOLITO VENEGAS HERNANDEZ","a":"Viña del Mar","t":"48","r":"3","p":"6,25 %"},{"n":"CARLOS HERNAN MUNOZ MATUS","a":"Viña del Mar","t":"61","r":"3","p":"4,92 %"},{"n":"HECTOR DAVID AVALOS RUPCICH","a":"Viña del Mar","t":"62","r":"3","p":"4,84 %"},{"n":"IVAN ALEJANDRO CALDERON MUNOZ","a":"San Antonio","t":"62","r":"3","p":"4,84 %"},{"n":"PABLO ROLANDO FIERRO ZAMORA","a":"Viña del Mar","t":"10","r":"2","p":"20,00 %"},{"n":"HECTOR JOSE ORTIZ MARQUEZ","a":"Viña del Mar","t":"34","r":"2","p":"5,88 %"},{"n":"AUGUSTO ANDRES FUENTES TAPIA","a":"Valparaíso","t":"45","r":"2","p":"4,44 %"},{"n":"SANTIAGO EMILIO ANGEL ARIAS","a":"Viña del Mar","t":"46","r":"2","p":"4,35 %"},{"n":"ALEJANDRO NICOLAS PARA GOMEZ","a":"Viña del Mar","t":"50","r":"2","p":"4,00 %"},{"n":"MAURICIO RODOLFO ASTORGA HERRERA","a":"San Antonio","t":"67","r":"2","p":"2,99 %"},{"n":"GONZALO ANDRES TAPIA VASCONCELO","a":"Valparaíso","t":"75","r":"2","p":"2,67 %"}];
+(function(){
+  var sel = document.getElementById('tech-select');
+  var elA = document.getElementById('tech-agencia');
+  var elT = document.getElementById('tech-total');
+  var elR = document.getElementById('tech-reiteradas');
+  var elP = document.getElementById('tech-tasa');
+  function render(i){
+    var d = TECNICOS[i];
+    if(!d) return;
+    elA.textContent = d.a;
+    elT.textContent = d.t;
+    elR.textContent = d.r;
+    elP.textContent = d.p;
+  }
+  if (sel) {
+    sel.addEventListener('change', function(){ render(this.value); });
+    if (TECNICOS.length) { sel.value = '0'; render(0); }
+  }
+})();
+</script>
 
 <section>
   <h2>Lectura para gerencia</h2>
@@ -254,9 +263,9 @@ footer{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--border
     <div class="panel">
       <h3>Hallazgo principal</h3>
       <ul>
-        <li>Viña del Mar concentra el 88 % de las averías reiteradas de la red (81 de 92 casos) y es la única agencia sobre su meta (6,13 % vs. 3,20 % de meta).</li>
+        <li>Viña del Mar concentra el 88 % de las averías reiteradas de la red (82 de 93 casos) y es la única agencia sobre su meta (6,21 % vs. 3,20 % de meta).</li>
         <li>Valparaíso, San Antonio operan con holgura frente a su meta, con Valparaíso en el mejor nivel relativo (0,64 %).</li>
-        <li>La tasa global (3,85 %) resulta del balance entre las 4 agencias evaluadas sobre 2.388 reparaciones FO del período.</li>
+        <li>La tasa global (3,89 %) resulta del balance entre las 4 agencias evaluadas sobre 2.388 reparaciones FO del período.</li>
       </ul>
     </div>
     <div class="panel">
@@ -281,7 +290,7 @@ footer{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--border
 </section>
 
 <footer>
-  <span>Fuente: p23-averias-reiteradas_2026-08.csv (BBDD) &middot; 2.389 registros &middot; periodo 19-06-2026 a 31-07-2026 &middot; Última actualización: 21-08-2026</span>
+  <span>Fuente: p23-averias-reiteradas_2026-08.csv (BBDD) &middot; 2.389 registros &middot; periodo 19-06-2026 a 31-07-2026 &middot; Última actualización: 22-08-2026</span>
   <span>Elecnor Chile &middot; Operaciones</span>
 </footer>
 
