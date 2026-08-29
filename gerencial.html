@@ -261,6 +261,42 @@ var TECNICOS = [{"n":"CRISTIAN NICOLAS SERRANO VELLAGAS","a":"Viña del Mar","t"
 </script>
 
 <section>
+  <h2>Causas del no cumplimiento</h2>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <p class="kpi-label">Causa dominante</p>
+      <p class="kpi-value" style="font-size:19px;">FO SIN POTENCIA</p>
+      <p class="kpi-note">64 % de las reiteradas netas</p>
+    </div>
+    <div class="kpi-card">
+      <p class="kpi-label">Reiteros rápidos (&le;2 días)</p>
+      <p class="kpi-value warn">22 %</p>
+      <p class="kpi-note">23 de 103 casos &mdash; reparación posiblemente incompleta</p>
+    </div>
+    <div class="kpi-card">
+      <p class="kpi-label">OLT con mayor tasa</p>
+      <p class="kpi-value" style="font-size:19px;">RENA_OLT_3</p>
+      <p class="kpi-note">13,64 % &middot; 3.2x el promedio de red</p>
+    </div>
+    <div class="kpi-card">
+      <p class="kpi-label">Origen proactivo (Diagnosis)</p>
+      <p class="kpi-value">88 %</p>
+      <p class="kpi-note">detectado antes del reclamo del cliente</p>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:1rem;">
+    <h3>Lectura de causa raíz</h3>
+    <ul>
+        <li>FO SIN POTENCIA concentra el 64 % de las averías reiteradas netas (66 de 103 casos); no es un problema disperso, sino un síntoma técnico específico.</li>
+        <li>22 % de las reiteradas (23 de 103 casos) vuelven a fallar dentro de los primeros 2 días tras la reparación, lo que apunta a reparaciones incompletas o mal diagnosticadas más que a fallas nuevas independientes.</li>
+        <li>El nodo RENA_OLT_3 concentra una tasa de reiteración de 13,64 % (3 de 22 órdenes), 3.2 veces el promedio de la red (4,31 %) — evidencia de un problema de planta o equipo más que de desempeño individual.</li>
+        <li>88 % de las reiteradas se detectan por el canal interno Diagnosis, antes de que el cliente reclame — confirma que es un patrón real y medible, no percepción del cliente.</li>
+        <li>Los técnicos con más reiteradas se concentran todos en Viña del Mar: el problema está territorialmente acotado, no disperso entre técnicos aislados.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
   <h2>Lectura para gerencia</h2>
   <div class="notes-grid">
     <div class="panel">
