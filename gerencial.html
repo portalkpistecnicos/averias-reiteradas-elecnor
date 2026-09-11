@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 :root{
   --navy-900:#0a2350; --navy-800:#0d2c63; --navy-700:#123b7a; --navy-500:#2c5fae; --navy-100:#e3ebf7;
@@ -40,9 +41,19 @@
 *{box-sizing:border-box;}
 body{margin:0; background:var(--bg); color:var(--text-primary); font-family:var(--font-body); line-height:1.6; -webkit-font-smoothing:antialiased;}
 .page{max-width:960px; margin:0 auto; padding:2.5rem 1.5rem 4rem;}
-.masthead{display:flex; align-items:center; gap:1.5rem; padding-bottom:1.5rem; border-bottom:3px solid var(--navy-700); margin-bottom:2rem;}
+.masthead{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem 1.5rem; padding-bottom:1.5rem; border-bottom:3px solid var(--navy-700); margin-bottom:2rem;}
+.masthead-left{display:flex; align-items:center; gap:1.5rem;}
 .masthead-divider{width:1px; align-self:stretch; background:var(--border-strong); flex-shrink:0;}
 .masthead-text{display:flex; flex-direction:column; gap:.35rem;}
+.masthead-actions{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.btn-ghost{display:inline-flex; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--border-strong); color:var(--navy-700); font-family:var(--font-body); font-size:13px; font-weight:600; padding:.55rem .9rem; border-radius:8px; cursor:pointer; line-height:1;}
+.btn-ghost:hover{background:var(--navy-100);}
+.btn-ghost:focus-visible{outline:2px solid var(--navy-500); outline-offset:1px;}
+.btn-icon{padding:.55rem; width:36px; height:36px; justify-content:center;}
+.btn-icon svg{width:16px; height:16px; display:block; stroke:currentColor;}
+.btn-icon .i-sun{display:none;}
+.btn-icon.is-dark-active .i-moon{display:none;}
+.btn-icon.is-dark-active .i-sun{display:block;}
 .eyebrow{font-family:var(--font-display); font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--orange-600);}
 h1{font-family:var(--font-display); font-weight:700; font-size:clamp(28px,4vw,38px); line-height:1.08; margin:0; color:var(--navy-900); text-wrap:balance;}
 .subline{font-size:15px; color:var(--text-secondary); margin:0;}
@@ -83,19 +94,39 @@ tbody tr.total td{background:var(--navy-100); font-weight:700; border-top:2px so
 .codes{display:flex; flex-wrap:wrap; gap:6px; margin-top:.4rem;}
 .code-chip{font-family:var(--font-body); font-size:12.5px; font-weight:600; color:var(--navy-700); background:var(--navy-100); border:1px solid var(--border); border-radius:6px; padding:.2rem .5rem; font-variant-numeric:tabular-nums;}
 footer{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; flex-wrap:wrap; gap:.5rem; font-size:12.5px; color:var(--text-muted);}
-@media print{ body{background:#fff;} .page{padding:0; max-width:none;} }
+@media print{
+  :root, :root[data-theme="dark"]{
+    --bg:#ffffff; --surface:#ffffff; --border:#dde3ee; --border-strong:#c3ccdd;
+    --text-primary:#151b2b; --text-secondary:#4d5972; --text-muted:#8790a3;
+    --navy-100:#e3ebf7;
+  }
+  body{background:#fff;}
+  .page{padding:0; max-width:none;}
+  .masthead-actions, .tech-picker select{display:none !important;}
+  section{break-inside:avoid;}
+}
 </style>
 </head>
 <body>
 <div class="page">
 
 <header class="masthead">
-  <img class="logo" alt="Elecnor" src="elecnor-logo.png">
-  <div class="masthead-divider"></div>
-  <div class="masthead-text">
-    <span class="eyebrow">Informe gerencial &middot; Operaciones</span>
-    <h1>Averías reiteradas</h1>
-    <p class="subline">Periodo 18-07-2026 a 31-08-2026 &middot; Accesos FO &middot; Actualizado 11-09-2026 14:03</p>
+  <div class="masthead-left">
+    <img class="logo" alt="Elecnor" src="elecnor-logo.png">
+    <div class="masthead-divider"></div>
+    <div class="masthead-text">
+      <span class="eyebrow">Informe gerencial &middot; Operaciones</span>
+      <h1>Averías reiteradas</h1>
+      <p class="subline">Periodo 15-07 a 16-08 &middot; Actualizado 11-09-2026 14:27</p>
+    </div>
+  </div>
+  <div class="masthead-actions">
+    <button type="button" id="btn-theme" class="btn-ghost btn-icon" aria-label="Cambiar a modo oscuro">
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+    <button type="button" id="btn-export-excel" class="btn-ghost">Exportar Excel</button>
+    <button type="button" id="btn-export-pdf" class="btn-ghost">Exportar PDF</button>
   </div>
 </header>
 
@@ -128,7 +159,7 @@ footer{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--border
 <section>
   <h2>Cumplimiento por agencia</h2>
   <div class="table-wrap">
-    <table>
+    <table id="tabla-agencias">
       <thead>
         <tr>
           <th>Agencia</th><th>Reparaciones FO</th><th>Reiteradas (netas)</th><th>% Reiteración</th><th>Meta</th><th>Desviación</th><th>Estado</th>
@@ -330,10 +361,74 @@ var TECNICOS = [{"n":"HECTOR JOSE ORTIZ MARQUEZ","a":"Viña del Mar","t":"51","r
 </section>
 
 <footer>
-  <span>Fuente: p23-averias-reiteradas_2026-09.csv (BBDD) &middot; 2.186 registros &middot; periodo 18-07-2026 a 31-08-2026 &middot; Última actualización: 11-09-2026 14:03</span>
+  <span>Fuente: p23-averias-reiteradas_2026-09.csv (BBDD) &middot; 2.186 registros &middot; periodo 15-07 a 16-08 &middot; Última actualización: 11-09-2026 14:27</span>
   <span>Elecnor Chile &middot; Operaciones &middot; Diseñado por Xas</span>
 </footer>
 
 </div>
+<script>
+(function(){
+  var root = document.documentElement;
+  var btnTheme = document.getElementById('btn-theme');
+
+  function systemPref(){
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  }
+  function currentTheme(){
+    return root.getAttribute('data-theme') || systemPref();
+  }
+  function updateThemeButton(){
+    var dark = currentTheme() === 'dark';
+    if (btnTheme) {
+      btnTheme.classList.toggle('is-dark-active', dark);
+      btnTheme.setAttribute('aria-label', dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+    }
+  }
+  try {
+    var saved = localStorage.getItem('averias-reiteradas-theme');
+    if (saved === 'dark' || saved === 'light') { root.setAttribute('data-theme', saved); }
+  } catch (e) {}
+  updateThemeButton();
+  if (btnTheme) {
+    btnTheme.addEventListener('click', function(){
+      var next = currentTheme() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('averias-reiteradas-theme', next); } catch (e) {}
+      updateThemeButton();
+    });
+  }
+
+  var btnPdf = document.getElementById('btn-export-pdf');
+  if (btnPdf) {
+    btnPdf.addEventListener('click', function(){ window.print(); });
+  }
+
+  var btnExcel = document.getElementById('btn-export-excel');
+  if (btnExcel && typeof XLSX !== 'undefined') {
+    btnExcel.addEventListener('click', function(){
+      var wb = XLSX.utils.book_new();
+      var tabla = document.getElementById('tabla-agencias');
+      if (tabla) {
+        var ws1 = XLSX.utils.table_to_sheet(tabla);
+        XLSX.utils.book_append_sheet(wb, ws1, 'Cumplimiento agencias');
+      }
+      if (typeof TECNICOS !== 'undefined' && TECNICOS.length) {
+        var filas = TECNICOS.map(function(d){
+          return {
+            'Tecnico': d.n,
+            'Agencia': d.a,
+            'Reparaciones FO': d.t,
+            'Reiteradas netas': d.r,
+            '% Reiteracion': d.p
+          };
+        });
+        var ws2 = XLSX.utils.json_to_sheet(filas);
+        XLSX.utils.book_append_sheet(wb, ws2, 'Tecnicos ofensores');
+      }
+      XLSX.writeFile(wb, 'Informe_Averias_Reiteradas_11-09-2026.xlsx');
+    });
+  }
+})();
+</script>
 </body>
 </html>
