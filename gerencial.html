@@ -7,9 +7,7 @@
 <meta name="description" content="Informe gerencial de averías reiteradas por agencia, Elecnor Chile.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<style>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
 :root{
   --navy-900:#0a2350; --navy-800:#0d2c63; --navy-700:#123b7a; --navy-500:#2c5fae; --navy-100:#e3ebf7;
   --orange-600:#e8631a; --orange-100:#fdeadd;
@@ -117,7 +115,7 @@ footer{margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--border
     <div class="masthead-text">
       <span class="eyebrow">Informe gerencial &middot; Operaciones</span>
       <h1>Averías reiteradas</h1>
-      <p class="subline">Periodo 16-08 a 15-09 &middot; Actualizado 30-10-2026 17:43</p>
+      <p class="subline">Periodo 16-08 a 15-09 &middot; Actualizado 30-10-2026 17:45</p>
     </div>
   </div>
   <div class="masthead-actions">
@@ -380,7 +378,7 @@ var TECNICOS = [{"n":"MATIAS RUBEN RUBINA BURGOS","a":"Viña del Mar","t":"34","
 </section>
 
 <footer>
-  <span>Fuente: p23-averias-reiteradas_2026-10.csv (BBDD) &middot; 2.190 registros &middot; periodo 16-08 a 15-09 &middot; Última actualización: 30-10-2026 17:43</span>
+  <span>Fuente: p23-averias-reiteradas_2026-10.csv (BBDD) &middot; 2.190 registros &middot; periodo 16-08 a 15-09 &middot; Última actualización: 30-10-2026 17:45</span>
   <span>Elecnor Chile &middot; Operaciones &middot; Diseñado por Xas</span>
 </footer>
 
@@ -423,28 +421,14 @@ var TECNICOS = [{"n":"MATIAS RUBEN RUBINA BURGOS","a":"Viña del Mar","t":"34","
   }
 
   var btnExcel = document.getElementById('btn-export-excel');
-  if (btnExcel && typeof XLSX !== 'undefined') {
+  if (btnExcel) {
     btnExcel.addEventListener('click', function(){
-      var wb = XLSX.utils.book_new();
-      var tabla = document.getElementById('tabla-agencias');
-      if (tabla) {
-        var ws1 = XLSX.utils.table_to_sheet(tabla);
-        XLSX.utils.book_append_sheet(wb, ws1, 'Cumplimiento agencias');
-      }
-      if (typeof TECNICOS !== 'undefined' && TECNICOS.length) {
-        var filas = TECNICOS.map(function(d){
-          return {
-            'Tecnico': d.n,
-            'Agencia': d.a,
-            'Reparaciones FO': d.t,
-            'Reiteradas netas': d.r,
-            '% Reiteracion': d.p
-          };
-        });
-        var ws2 = XLSX.utils.json_to_sheet(filas);
-        XLSX.utils.book_append_sheet(wb, ws2, 'Tecnicos ofensores');
-      }
-      XLSX.writeFile(wb, 'Informe_Averias_Reiteradas_30-10-2026.xlsx');
+      var a = document.createElement('a');
+      a.href = 'Detalle_Tecnicos_Reiterados.xlsx';
+      a.download = 'Detalle_Tecnicos_Reiterados.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     });
   }
 })();
